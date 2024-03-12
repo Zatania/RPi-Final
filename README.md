@@ -39,7 +39,20 @@ venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-### 5. Run the Flask Application
+
+### 5. Initiate Database and add Admin Account
+```bash
+flask shell
+from app import db, Admin, Beneficiary, Confirmation
+from werkzeug.security import generate_password_hash
+db.create_all()
+new_admin = Admin(username='admin', password=generate_new_password('admin'), fullname = 'Admin Account')
+db.session.add(new_admin)
+db.session.commit()
+exit()
+```
+
+### 6. Run the Flask Application
 
 ```bash
 flask run
