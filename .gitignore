@@ -1,0 +1,11 @@
+# Ignore the 'env' folder
+env/
+
+# Ignore the '__pycache__' folder
+__pycache__/
+
+# Ignore the 'instance' folder
+instance/
+
+# Ignore files under the 'uploads' folder
+uploads/*
