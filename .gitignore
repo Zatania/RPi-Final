@@ -9,3 +9,6 @@ instance/
 
 # Ignore files under the 'uploads' folder
 uploads/*
+
+# exception to the rule
+!uploads/.gitkeep 
