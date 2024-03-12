@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block title %}
+    <title>E-Pera - Request Assistance</title>
+{% endblock %}
+{% block content %}
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col text-center py-1">
+                <h1 class="display-4">E-Pera</h1>
+                <h2 class="h4">Emerging Platform for Emergency Assistance</h2>
+            </div>
+        </div>
+        <div class="text-center py-1">
+            <img class="logo" src="{{ url_for('static', filename='img/puplogo.png')}}" alt="">
+            <img class="logo" src="{{ url_for('static', filename='img/ITOMS.png')}}" alt="">
+        </div>
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="card" style="border-radius: 1rem;">
+                    <div class="card-body p-5">
+                        <h5 class="card-title mb-5 text-center">Request Assistance</h5>
+                        <form action="" method="POST">
+                            <div class="form-group mb-3 text-center">
+                                <label for="assistance_type">Select Assistance Type:</label>
+                                <select id="assistance_type" class="form-select text-center" name="assistance_type">
+                                    <option value="food">Food</option>
+                                    <option value="house_rental">House Rental</option>
+                                    <option value="school_supplies">School Supplies</option>
+                                    <option value="transportation">Transportation</option>
+                                </select>
+                            </div>
+                            <div class="form-group mb-5 text-center" id="names_dropdown">
+                                <label for="name">Select Beneficiary Name:</label>
+                                <select class="form-select text-center" id="name" name="name">
+                                    <!-- Options will be dynamically populated based on selected assistance type -->
+                                </select>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary btn-sm" id="need_assistance_btn">Need Assistance</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('assistance_type').addEventListener('change', function() {
+            var assistanceType = this.value;
+            // AJAX call to fetch names based on assistance type and populate the names dropdown
+            // Display names dropdown and need assistance button
+            document.getElementById('names_dropdown');
+            document.getElementById('need_assistance_btn');
+        });
+    </script>
+</body>
+{% endblock %}

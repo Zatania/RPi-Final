@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% block title %}
+    <title>E-Pera Admin Dashboard - Add Beneficiary</title>
+{% endblock %}
+{% block content %}
+    <body>
+        <section class="sign-in">
+            <div class="container-fluid d-flex justify-content-center align-items-center vh-100">
+                <div class="col-xl-10">
+                    <div class="text-center">
+                        <div>
+                            <img class="logo" src="{{ url_for('static', filename='img/puplogo.png')}}" alt="">
+                            <img class="logo" src="{{ url_for('static', filename='img/ITOMS.png')}}" alt="">
+                        </div>
+                    </div>
+                    <div class="card" style="border-radius: 1rem;">
+                        <div class="card-body p-5">
+                            <div class="d-grid d-md-flex justify-content-md-start">
+                                <a href="{{ url_for('dashboard') }}">
+                                    <button type="button" class="btn btn-outline-dark btn-sm"><i class="fa-solid fa-arrow-left-long"></i> Return</button>
+                                </a>
+                            </div>
+                            <h1 class="card-title mb-5 text-center">Add Beneficiary</h1>
+                            <div class="mb-1">
+                                {% with messages = get_flashed_messages() %}
+                                    {% if messages %}
+                                        <div class="alert alert-danger" role="alert">
+                                            {% for message in messages %}
+                                                {{ message }}
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                {% endwith %}
+                            </div>
+                            <form method="POST" action="/addbeneficiary" enctype="multipart/form-data">
+                                <div class="row align-center">
+                                    <div class="col-md-4 mb-4">
+                                        <div class="form-floating form-outline">
+                                            <input type="text" id="first_name floatingInput" class="form-control" placeholder="first_name" name="first_name"/>
+                                            <label class="form-label" for="first_name floatingInput">First Name</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-4">
+                                        <div class="form-floating form-outline">
+                                            <input type="text" id="middle_name floatingInput" class="form-control" placeholder="middle_name" name="middle_name"/>
+                                            <label class="form-label" for="middle_name floatingInput">Middle Name</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-4">
+                                        <div class="form-floating form-outline">
+                                            <input type="text" id="last_name floatingInput" class="form-control" placeholder="last_name" name="last_name"/>
+                                            <label class="form-label" for="last_name floatingInput">Last Name</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-4">
+                                        <div class="form-floating form-outline">
+                                            <input type="number" id="contact_number floatingInput" class="form-control" placeholder="contact_number" name="contact_number"/>
+                                            <label class="form-label" for="contact_number floatingInput">Contact Number</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-4">
+                                        <div class="form-floating form-outline">
+                                            <input type="number" id="gcash_number floatingInput" class="form-control" placeholder="gcash_number" name="gcash_number"/>
+                                            <label class="form-label" for="gcash_number floatingInput">GCash Number</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-4">
+                                        <div class="form-floating form-outline">
+                                            <select id="assistance_type" class="form-select" name="assistance_type">
+                                                <option value="food">Food</option>
+                                                <option value="house_rental">House Rental</option>
+                                                <option value="school_supplies">School Supplies</option>
+                                                <option value="transportation">Transportation</option>
+                                            </select>
+                                            <label class="form-label" for="assistance_type">Assistance Type</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-4">
+                                        <div class="form-outline">
+                                            <label class="form-label" for="image_attachment">Attach Generated GCash QR Code</label>
+                                            <input type="file" id="image_attachment" class="form-control" name="image_attachment" accept="image/*"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-grid d-flex justify-content-md-end">
+                                    <button class="btn btn-outline-primary" type="submit">Add Beneficiary</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+{% endblock %}

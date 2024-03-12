@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% block title %}
+    <title>E-Pera Admin Dashboard - Beneficiaries List</title>
+{% endblock %}
+{% block content %}
+    <body>
+        <section class="sign-in">
+            <div class="container-fluid d-flex justify-content-center align-items-center vh-100">
+                <div class="col-xl-10">
+                    <div class="text-center">
+                        <div>
+                            <img class="logo" src="{{ url_for('static', filename='img/puplogo.png')}}" alt="">
+                            <img class="logo" src="{{ url_for('static', filename='img/ITOMS.png')}}" alt="">
+                        </div>
+                    </div>
+                    <div class="card" style="border-radius: 1rem;">
+                        <div class="card-body p-5">
+                                <div class="d-grid d-md-flex justify-content-md-start">
+                                    <a href="{{ url_for('dashboard') }}">
+                                        <button type="button" class="btn btn-outline-dark btn-sm"><i class="fa-solid fa-arrow-left-long"></i> Return</button>
+                                    </a>
+                                </div>
+                            <h1 class="card-title mb-5 text-center">Beneficiaries List</h1>
+                            <div class="row">
+                                <div class="row">
+                                    <table class="table" id="dataTable">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">
+                                                    First Name
+                                                </th>
+                                                <th scope="col">
+                                                    Middle Name
+                                                </th>
+                                                <th scope="col">
+                                                    Last Name
+                                                </th>
+                                                <th scope="col">
+                                                    Contact Number
+                                                </th>
+                                                <th scope="col">
+                                                    GCash Number
+                                                </th>
+                                                <th scope="col">
+                                                    Assistance Type
+                                                </th>
+                                                <th scope="col">
+                                                    Actions
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for beneficiary in beneficiaries %}
+                                            <tr>
+                                                <td scope="row">
+                                                    {{ beneficiary.first_name|capitalize }}
+                                                </td>
+                                                <td>
+                                                    {{ beneficiary.middle_name|capitalize }}
+                                                </td>
+                                                <td>
+                                                    {{ beneficiary.last_name|capitalize }}
+                                                </td>
+                                                <td>
+                                                    {{ beneficiary.contact_number }}
+                                                </td>
+                                                <td>
+                                                    {{ beneficiary.gcash_number }}
+                                                </td>
+                                                <td>
+                                                    {{ beneficiary.assistance_type|capitalize }}
+                                                </td>
+                                                <th>
+                                                    <button type="button" class="btn btn-outline-info view-image-btn" data-image="{{ beneficiary.image_attachment }}"><i class="fa-solid fa-file-image"></i> View QR Code</button>
+                                                    <a href="/delete/{{ beneficiary.id }}">
+                                                        <button type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i> Delete</button>
+                                                    </a>
+                                                </th>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modal -->
+        <div class="modal fade" id="imageViewModal" tabindex="-1" aria-labelledby="imageViewModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="imageViewModalLabel">QR Code</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <img id="imagePreview" src="" alt="QR Code" style="max-width: 100%; max-height: 100%;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+{% endblock %}

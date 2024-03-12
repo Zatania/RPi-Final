@@ -1,0 +1,36 @@
+body {
+    font-family: 'Consolas', sans-serif;
+    background: url("/static/img/background_portal.png") no-repeat center center fixed;
+    background-size: cover;
+}
+
+.logo {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 10px;
+}
+
+.login-button {
+    background: transparent;
+    border: none;
+    padding: 0;
+    display: flex;
+    cursor: pointer;
+    border-radius: 8px;
+    position: fixed;
+    margin-left: 15px;
+}
+
+.login-button img {
+    width: 40px;
+    height: auto; 
+    display: block;
+    border-radius: 8px;
+    position: left ;
+}
+
+
+.buttonsIndex img {
+    height: 150px;
+    width: 150px;
+}
