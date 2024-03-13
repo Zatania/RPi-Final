@@ -225,7 +225,6 @@ def confirm(confirmation_id):
     return redirect(url_for('confirm_assistance'))
 
 @app.route('/add_to_confirmation', methods=['POST'])
-@login_required
 def add_to_confirmation():
     assistance_type = request.form.get('assistance_type')
     beneficiary_id = request.form.get('beneficiary_id')
