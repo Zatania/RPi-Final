@@ -69,15 +69,6 @@ login_manager.init_app(app)
 def load_user(user_id):
     return Admin.query.get(int(user_id))
 
-@app.cli.command("init-db")
-def init_db():
-    db.create_all()
-    # Check if admin account exists, if not create one
-    if not Admin.query.filter_by(username='admin').first():
-        admin = Admin(username='admin', password=generate_password_hash('admin'), fullname='Administrator')
-        db.session.add(admin)
-        db.session.commit()
-
 @app.route('/')
 def index():
     return render_template("index.html")
