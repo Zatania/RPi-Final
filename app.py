@@ -77,6 +77,10 @@ def init_db():
         admin = Admin(username='admin', password=generate_password_hash('admin'), fullname='Administrator')
         db.session.add(admin)
         db.session.commit()
+
+@app.cli.command("drop-db")
+def drop_db():
+    db.drop_all()
         
 @app.route('/')
 def index():
