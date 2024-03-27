@@ -294,11 +294,6 @@ def coinInterrupt(pin):
 def loop():
     time.sleep(interval)
 
-@app.route('/insertcoin')
-def insertcoin_page():
-    global total_amount
-
-    return render_template("insertcoin.html", total_amount=total_amount)
 @app.route('/insertcoin', methods=["POST"])
 def insertcoin():
     global total_amount
@@ -316,5 +311,6 @@ def insertcoin():
         new_money = Money(amount=total_amount)
         db.session.add(new_money)
         db.session.commit()
-        total_amount = 0
         return redirect(url_for('index'))
+    
+    return render_template("insertcoin.html", total_amount=total_amount)
