@@ -52,23 +52,14 @@
 {% endblock %}
 {% block scripts %}
     <script>
+        // Function to update total_amount using AJAX
         function updateTotalAmount() {
-            // Check if total_amount is available in client-side cache
-            var cachedTotalAmount = localStorage.getItem('cachedTotalAmount');
-            if (cachedTotalAmount !== null) {
-                // Use cached value if available
-                document.getElementById('total-amount').innerText = cachedTotalAmount;
-            }
-
             // Make AJAX request to fetch latest total_amount
             fetch('/get_total_amount')
                 .then(response => response.json())
                 .then(data => {
                     // Update total_amount on the page
                     document.getElementById('total-amount').innerText = data.total_amount;
-
-                    // Update client-side cache with the latest value
-                    localStorage.setItem('cachedTotalAmount', data.total_amount);
                 })
                 .catch(error => {
                     console.error('Error fetching total_amount:', error);
@@ -78,7 +69,7 @@
         // Update total_amount initially when the page loads
         updateTotalAmount();
 
-        // Update total_amount every 1 second (for example)
-        setInterval(updateTotalAmount, 1000); // Update every 1 second
+        // Update total_amount every second
+        setInterval(updateTotalAmount, 1000); // Update every second
     </script>
 {% endblock %}
