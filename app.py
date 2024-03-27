@@ -275,6 +275,16 @@ non_pulse_val = 1 if pulseVal == 0 else 0
 prev = non_pulse_val
 total_amount = 0  # Variable to store the total amount
 
+def setup_gpio():
+    GPIO.setwarnings(False)
+    GPIO.setmode(pinNumberingType)
+    GPIO.setup(pinNum, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+    if readingtype == 1:
+        GPIO.add_event_detect(pinNum, GPIO.BOTH, callback=coinInterrupt, bouncetime=bouncetime)
+
+def cleanup_gpio():
+    GPIO.cleanup()
+
 def coinInterrupt(pin):
     global prev, total_amount
     gpio_val = GPIO.input(pinNum)
@@ -287,12 +297,6 @@ def coinInterrupt(pin):
 def loop():
     time.sleep(interval)
 
-GPIO.setwarnings(False)
-GPIO.setmode(pinNumberingType)
-GPIO.setup(pinNum, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-if readingtype == 1:
-    GPIO.add_event_detect(pinNum, GPIO.BOTH, callback=coinInterrupt, bouncetime=bouncetime)
-
 @app.route('/insertcoin', methods=["GET", "POST"])
 def insertcoin():
     global total_amount
@@ -300,6 +304,7 @@ def insertcoin():
 
     try:
         print("Coin acceptor started. Press Ctrl+C to exit.")
+        setup_gpio()  # Setup GPIO when the insert coin page is visited
         if readingtype == 2:
             while True:
                 loop()
@@ -335,3 +340,9 @@ def get_total_amount():
     global total_amount
     # Calculate or obtain the latest total_amount here
     return jsonify(total_amount=total_amount)
+
+if __name__ == "__main__":
+    try:
+        app.run(debug=True)
+    finally:
+        cleanup_gpio()  # Cleanup GPIO when the application exits
