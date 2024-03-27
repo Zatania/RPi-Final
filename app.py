@@ -294,13 +294,12 @@ def coinInterrupt(pin):
 def loop():
     time.sleep(interval)
 
-# Calling setup function once
-    
-setup()
-
 @app.route('/insertcoin', methods=["GET", "POST"])
 def insertcoin():
     global total_amount
+    # Calling setup function once
+        
+    setup()
     try:
         print("Coin acceptor started. Press Ctrl+C to exit.")
         if readingtype == 2:
