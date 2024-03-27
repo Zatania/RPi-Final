@@ -310,7 +310,7 @@ def insertcoin():
                 db.session.commit()
                 return redirect(url_for('index'))
             else:
-                return render_template("insertcoin.html", total_amount=total_amount)
+                return render_template("insertcoin.html")
     else:
         while True:
             time.sleep(interval)
@@ -322,4 +322,10 @@ def insertcoin():
                 db.session.commit()
                 return redirect(url_for('index'))
             else:
-                return render_template("insertcoin.html", total_amount=total_amount)
+                return render_template("insertcoin.html")
+            
+@app.route('/get_total_amount', methods=["GET"])
+def get_total_amount():
+    global total_amount
+    # Calculate or obtain the latest total_amount here
+    return jsonify(total_amount=total_amount)

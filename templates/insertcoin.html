@@ -19,7 +19,7 @@
                                 <h1 class="card-title mb-5 text-center">Insert Coin</h1>
                                 <div class="row">
                                     <h3 class="card-title mb-5 text-center">Total Amount</h3>
-                                    <h2 class="card-title mb-5 text-center">
+                                    <h2 id="total-amount" class="card-title mb-5 text-center">
                                         {% if total_amount %}
                                             {{ total_amount }}
                                         {% else %}
@@ -51,4 +51,27 @@
             </div>
         </div>
     </body>
+{% endblock %}
+{% block scripts %}
+    <script>
+        // Function to update total_amount using AJAX
+        function updateTotalAmount() {
+            // Make AJAX request to fetch latest total_amount
+            fetch('/get_total_amount')
+                .then(response => response.json())
+                .then(data => {
+                    // Update total_amount on the page
+                    document.getElementById('total-amount').innerText = data.total_amount;
+                })
+                .catch(error => {
+                    console.error('Error fetching total_amount:', error);
+                });
+        }
+
+        // Update total_amount initially when the page loads
+        updateTotalAmount();
+
+        // Update total_amount every 5 seconds (for example)
+        setInterval(updateTotalAmount, 5000); // Update every 5 seconds
+    </script>
 {% endblock %}
