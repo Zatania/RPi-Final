@@ -298,7 +298,7 @@ def loop():
 def insertcoin_page():
     global total_amount
 
-    return render_template("insert_coin.html", total_amount=total_amount)
+    return render_template("insertcoin.html", total_amount=total_amount)
 @app.route('/insertcoin', methods=["POST"])
 def insertcoin():
     global total_amount
