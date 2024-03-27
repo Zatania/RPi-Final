@@ -6,6 +6,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from datetime import datetime, date
 import os
+import RPi.GPIO as GPIO
+import sys
+import time
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///e-pera.db'
@@ -53,7 +56,7 @@ class Confirmation(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     beneficiary_id = db.Column(db.Integer, db.ForeignKey('beneficiary.id'))
-    confirmation_date = db.Column(db.DateTime, default=datetime.utcnow)
+    confirmation_date = db.Column(db.DateTime, default=datetime.now)
     confirmed_by = db.Column(db.Integer, db.ForeignKey('admin.id'))
     notes = db.Column(db.Text)
     status = db.Column(db.String(20), default='pending')
@@ -61,6 +64,17 @@ class Confirmation(db.Model):
     def __repr__(self):
         return f'<Confirmation {self.beneficiary_id} {self.date_confirmed}>'
 
+class Money(db.Model):
+
+    __tablename__ = 'money'
+
+    id = db.Column(db.Integer, primary_key=True)
+    amount = db.Column(db.Float, nullable=False)
+    date_added = db.Column(db.DateTime, default=datetime.now)
+
+    def __repr__(self):
+        return f'<Money {self.amount} {self.date_added}>'
+    
 login_manager = LoginManager()
 login_manager.login_view = 'login.html'
 login_manager.init_app(app)
@@ -247,3 +261,56 @@ def add_to_confirmation():
         # Handle other exceptions
         db.session.rollback()
         return jsonify({'success': False, 'message': str(e)}), 500
+
+# Insert Coin Page
+
+pinNumberingType = GPIO.BCM
+bouncetime = 36
+readingtype = 1
+pinNum = 2  # Assuming this is the GPIO pin connected to the coin acceptor
+pulseVal = 0  # Assuming the pulse value for the coin acceptor is 0
+
+interval = 0.01 if readingtype == 2 else 1
+non_pulse_val = 1 if pulseVal == 0 else 0
+prev = non_pulse_val
+total_amount = 0  # Variable to store the total amount
+
+def setup():
+    GPIO.setwarnings(False)
+    GPIO.setmode(pinNumberingType)
+    GPIO.setup(pinNum, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+    if readingtype == 1:
+        GPIO.add_event_detect(pinNum, GPIO.BOTH, callback=coinInterrupt, bouncetime=bouncetime)
+
+def coinInterrupt(pin):
+    global prev, total_amount
+    gpio_val = GPIO.input(pinNum)
+    if gpio_val == pulseVal and prev != pulseVal:
+        total_amount += 1  # Increment total amount
+        print("Received pulse. Total amount:", total_amount)
+        sys.stdout.flush()
+    prev = gpio_val
+
+def loop():
+    time.sleep(interval)
+
+@app.route('/insertcoin')
+def insertcoin():
+    global total_amount
+    setup()
+    print("Coin acceptor started. Press Ctrl+C to exit.")
+    if readingtype == 2:
+        while True:
+            loop()
+    else:
+        while True:
+            time.sleep(interval)
+    return render_template("insert_coin.html", total_amount=total_amount)
+
+@app.route('/insertcoin', methods=["POST"])
+def insertcoin_post():
+    global total_amount
+    new_money = Money(amount=total_amount)
+    db.session.add(new_money)
+    db.session.commit()
+    return redirect(url_for('index'))

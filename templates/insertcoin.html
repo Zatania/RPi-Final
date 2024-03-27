@@ -1,0 +1,54 @@
+form{% extends 'base.html' %}
+{% block title %}
+    <title>E-Pera Admin Dashboard - Insert Coin</title>
+{% endblock %}
+{% block content %}
+    <body>
+        <section class="sign-in">
+            <div class="container-fluid d-flex justify-content-center align-items-center vh-100">
+                <div class="col-xl-10">
+                    <div class="text-center">
+                        <div>
+                            <img class="logo" src="{{ url_for('static', filename='img/puplogo.png')}}" alt="">
+                            <img class="logo" src="{{ url_for('static', filename='img/ITOMS.png')}}" alt="">
+                        </div>
+                    </div>
+                    <form action="{{ url_for('insertcoin') }}" method="POST">
+                        <div class="card" style="border-radius: 1rem;">
+                            <div class="card-body p-5">
+                                <h1 class="card-title mb-5 text-center">Insert Coin</h1>
+                                <div class="row">
+                                    <h3 class="card-title mb-5 text-center">Total Amount</h3>
+                                    <h2 class="card-title mb-5 text-center">
+                                        {% if total_amount %}
+                                            {{ total_amount }}
+                                        {% else %}
+                                            0
+                                        {% endif %}
+                                    </h2>
+                                    </h3>
+                                    <button class="btn btn-primary" type="submit">Done</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modal -->
+        <div class="modal fade" id="imageViewModal" tabindex="-1" aria-labelledby="imageViewModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="imageViewModalLabel">QR Code</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <img id="imagePreview" src="" alt="QR Code" style="max-width: 100%; max-height: 100%;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+{% endblock %}
