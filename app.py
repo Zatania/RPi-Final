@@ -314,7 +314,6 @@ def insertcoin():
                     db.session.add(new_money)
                     db.session.commit()
                     total_amount = 0  # Reset total_amount after saving to the database
-                    GPIO.cleanup()  # Cleanup GPIO
                     return redirect(url_for('index'))
                 else:
                     return render_template("insertcoin.html")
@@ -327,14 +326,13 @@ def insertcoin():
                     db.session.add(new_money)
                     db.session.commit()
                     total_amount = 0  # Reset total_amount after saving to the database
-                    GPIO.cleanup()  # Cleanup GPIO
                     return redirect(url_for('index'))
                 else:
                     return render_template("insertcoin.html")
     except KeyboardInterrupt:
         GPIO.cleanup()  # Cleanup GPIO in case of keyboard interrupt
         return "KeyboardInterrupt occurred, GPIO cleaned up"
-            
+
 @app.route('/get_total_amount', methods=["GET"])
 def get_total_amount():
     global total_amount
