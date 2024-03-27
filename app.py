@@ -294,36 +294,35 @@ def coinInterrupt(pin):
 def loop():
     time.sleep(interval)
 
+# Perform GPIO setup outside of the route
+setup()
+print("Coin acceptor started.")
+
+# Function to check for coin insertion
+def check_coin_insertion():
+    if readingtype == 2:
+        while True:
+            loop()
+    else:
+        while True:
+            time.sleep(interval)
+
 @app.route('/insertcoin', methods=["GET", "POST"])
 def insertcoin():
     global total_amount
     try:
-        setup()
-        print("Coin acceptor started. Press Ctrl+C to exit.")
-        if readingtype == 2:
-            while True:
-                loop()
-                # Check for POST request inside the loop
-                if request.method == "POST":
-                    new_money = Money(amount=total_amount)
-                    db.session.add(new_money)
-                    db.session.commit()
-                    GPIO.cleanup()  # Cleanup GPIO
-                    return redirect(url_for('index'))
-                else:
-                    return render_template("insertcoin.html")
+         # Check for coin insertion
+        check_coin_insertion()
+        
+        if request.method == "POST":
+            # Cleanup GPIO before processing the POST request
+            GPIO.cleanup()
+            new_money = Money(amount=total_amount)
+            db.session.add(new_money)
+            db.session.commit()
+            return redirect(url_for('index'))
         else:
-            while True:
-                time.sleep(interval)
-                # Check for POST request inside the loop
-                if request.method == "POST":
-                    new_money = Money(amount=total_amount)
-                    db.session.add(new_money)
-                    db.session.commit()
-                    GPIO.cleanup()  # Cleanup GPIO
-                    return redirect(url_for('index'))
-                else:
-                    return render_template("insertcoin.html")
+            return render_template("insertcoin.html")
     except KeyboardInterrupt:
         GPIO.cleanup()  # Cleanup GPIO in case of keyboard interrupt
         return "KeyboardInterrupt occurred, GPIO cleaned up"
