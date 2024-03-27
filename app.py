@@ -317,7 +317,7 @@ def insertcoin():
         GPIO.cleanup()  # Cleanup GPIO in case of keyboard interrupt
         return "KeyboardInterrupt occurred, GPIO cleaned up"
 
-@app.route('/insertcoin/done', methods=["POST"])
+@app.route('/insertcoin/done')
 def insert_coin_post():
     global total_amount
 
