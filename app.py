@@ -311,6 +311,9 @@ def check_coin_insertion():
 def insertcoin():
     global total_amount
     try:
+        # Check for coin insertion
+        check_coin_insertion()
+        
         if request.method == "POST":
             # Cleanup GPIO before processing the POST request
             GPIO.cleanup()
@@ -319,8 +322,6 @@ def insertcoin():
             db.session.commit()
             return redirect(url_for('index'))
         else:
-            # Check for coin insertion
-            check_coin_insertion()
             return render_template("insertcoin.html")
     except KeyboardInterrupt:
         GPIO.cleanup()  # Cleanup GPIO in case of keyboard interrupt
