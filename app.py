@@ -295,22 +295,26 @@ def loop():
     time.sleep(interval)
 
 @app.route('/insertcoin')
+def insertcoin_page():
+    global total_amount
+
+    return render_template("insert_coin.html", total_amount=total_amount)
+@app.route('/insertcoin', methods=["POST"])
 def insertcoin():
     global total_amount
     setup()
     print("Coin acceptor started. Press Ctrl+C to exit.")
-    if readingtype == 2:
+    """ if readingtype == 2:
         while True:
             loop()
     else:
         while True:
-            time.sleep(interval)
-    return render_template("insert_coin.html", total_amount=total_amount)
+            time.sleep(interval) """
 
-@app.route('/insertcoin', methods=["POST"])
-def insertcoin_post():
-    global total_amount
-    new_money = Money(amount=total_amount)
-    db.session.add(new_money)
-    db.session.commit()
-    return redirect(url_for('index'))
+    if request.method == "POST":
+        GPIO.cleanup()  # Cleanup GPIO
+        new_money = Money(amount=total_amount)
+        db.session.add(new_money)
+        db.session.commit()
+        total_amount = 0
+        return redirect(url_for('index'))
