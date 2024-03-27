@@ -297,8 +297,7 @@ if readingtype == 1:
 def insertcoin():
     global total_amount
     # Calling setup function once
-        
-    setup()
+
     try:
         print("Coin acceptor started. Press Ctrl+C to exit.")
         if readingtype == 2:
