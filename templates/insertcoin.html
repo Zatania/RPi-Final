@@ -13,25 +13,23 @@
                             <img class="logo" src="{{ url_for('static', filename='img/ITOMS.png')}}" alt="">
                         </div>
                     </div>
-                    <form action="{{ url_for('insertcoin') }}" method="POST">
-                        <div class="card" style="border-radius: 1rem;">
-                            <div class="card-body p-5">
-                                <h1 class="card-title mb-5 text-center">Insert Coin</h1>
-                                <div class="row">
-                                    <h3 class="card-title mb-5 text-center">Total Amount</h3>
-                                    <h2 id="total-amount" class="card-title mb-5 text-center">
-                                        {% if total_amount %}
-                                            {{ total_amount }}
-                                        {% else %}
-                                            0
-                                        {% endif %}
-                                    </h2>
-                                    </h3>
-                                    <button class="btn btn-primary" type="submit">Done</button>
-                                </div>
+                    <div class="card" style="border-radius: 1rem;">
+                        <div class="card-body p-5">
+                            <h1 class="card-title mb-5 text-center">Insert Coin</h1>
+                            <div class="row">
+                                <h3 class="card-title mb-5 text-center">Total Amount</h3>
+                                <h2 id="total-amount" class="card-title mb-5 text-center">
+                                    {% if total_amount %}
+                                        {{ total_amount }}
+                                    {% else %}
+                                        0
+                                    {% endif %}
+                                </h2>
+                                </h3>
+                                <a class="btn btn-primary" href="{{ url_for('insert_coin_post') }}">Done</a>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </section>

@@ -308,31 +308,25 @@ def insertcoin():
         if readingtype == 2:
             while True:
                 loop()
-                # Check for POST request inside the loop
-                if request.method == "POST":
-                    new_money = Money(amount=total_amount)
-                    db.session.add(new_money)
-                    db.session.commit()
-                    total_amount = 0  # Reset total_amount after saving to the database
-                    return redirect(url_for('index'))
-                else:
-                    return render_template("insertcoin.html")
+                return render_template("insertcoin.html")
         else:
             while True:
                 time.sleep(interval)
-                # Check for POST request inside the loop
-                if request.method == "POST":
-                    new_money = Money(amount=total_amount)
-                    db.session.add(new_money)
-                    db.session.commit()
-                    total_amount = 0  # Reset total_amount after saving to the database
-                    return redirect(url_for('index'))
-                else:
-                    return render_template("insertcoin.html")
+                return render_template("insertcoin.html")
     except KeyboardInterrupt:
         GPIO.cleanup()  # Cleanup GPIO in case of keyboard interrupt
         return "KeyboardInterrupt occurred, GPIO cleaned up"
 
+@app.route('/insertcoin/done', methods=["POST"])
+def insert_coin_post():
+    global total_amount
+
+    new_money = Money(amount=total_amount)
+    db.session.add(new_money)
+    db.session.commit()
+    total_amount = 0  # Reset total_amount after saving to the database
+    cleanup_gpio()
+    return redirect(url_for('index'))
 @app.route('/get_total_amount', methods=["GET"])
 def get_total_amount():
     global total_amount
