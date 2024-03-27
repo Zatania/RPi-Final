@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %}
+    <title>E-Pera Admin Dashboard - Donation History</title>
+{% endblock %}
+{% block content %}
+    <body>
+        <section class="sign-in">
+            <div class="container-fluid d-flex justify-content-center align-items-center vh-100">
+                <div class="col-xl-10">
+                    <div class="text-center">
+                        <div>
+                            <img class="logo" src="{{ url_for('static', filename='img/puplogo.png')}}" alt="">
+                            <img class="logo" src="{{ url_for('static', filename='img/ITOMS.png')}}" alt="">
+                        </div>
+                    </div>
+                    <div class="card" style="border-radius: 1rem;">
+                        <div class="card-body p-5">
+                            <div class="d-grid d-md-flex justify-content-md-start">
+                                <a href="{{ url_for('dashboard') }}">
+                                    <button type="button" class="btn btn-outline-dark btn-sm"><i class="fa-solid fa-arrow-left-long"></i> Return</button>
+                                </a>
+                            </div>
+                            <h1 class="card-title mb-5 text-center">Confirmation List</h1>
+                            <div class="row">
+                                <table class="table" id="dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Amount</th>
+                                            <th scope="col">Donation Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for mon in money %}
+                                        <tr>
+                                            <td>{{ mon.id }}</td>
+                                            <td>{{ mon.amount }}</td>
+                                            <td>{{ mon.date_added }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+{% endblock %}

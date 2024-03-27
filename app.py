@@ -333,6 +333,12 @@ def get_total_amount():
     # Calculate or obtain the latest total_amount here
     return jsonify(total_amount=total_amount)
 
+@app.route('/history')
+@login_required
+def history():
+    money = Money.query.all()
+    return render_template("history.html", money=money)
+
 if __name__ == "__main__":
     try:
         app.run(debug=True)
