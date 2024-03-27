@@ -300,36 +300,31 @@ def insertcoin():
     # Calling setup function once
         
     setup()
-    try:
-        print("Coin acceptor started. Press Ctrl+C to exit.")
-        if readingtype == 2:
-            while True:
-                loop()
-                # Check for POST request inside the loop
-                if request.method == "POST":
-                    new_money = Money(amount=total_amount)
-                    db.session.add(new_money)
-                    db.session.commit()
-                    GPIO.cleanup()  # Cleanup GPIO
-                    return redirect(url_for('index'))
-                else:
-                    return render_template("insertcoin.html")
-        else:
-            while True:
-                time.sleep(interval)
-                # Check for POST request inside the loop
-                if request.method == "POST":
-                    new_money = Money(amount=total_amount)
-                    db.session.add(new_money)
-                    db.session.commit()
-                    GPIO.cleanup()  # Cleanup GPIO
-                    return redirect(url_for('index'))
-                else:
-                    return render_template("insertcoin.html")
-    except KeyboardInterrupt:
-        GPIO.cleanup()  # Cleanup GPIO in case of keyboard interrupt
-        return "KeyboardInterrupt occurred, GPIO cleaned up"
-            
+    print("Coin acceptor started. Press Ctrl+C to exit.")
+    if readingtype == 2:
+        while True:
+            loop()
+            # Check for POST request inside the loop
+            if request.method == "POST":
+                new_money = Money(amount=total_amount)
+                db.session.add(new_money)
+                db.session.commit()
+                GPIO.cleanup()  # Cleanup GPIO
+                return redirect(url_for('index'))
+            else:
+                return render_template("insertcoin.html")
+    else:
+        while True:
+            time.sleep(interval)
+            # Check for POST request inside the loop
+            if request.method == "POST":
+                new_money = Money(amount=total_amount)
+                db.session.add(new_money)
+                db.session.commit()
+                GPIO.cleanup()  # Cleanup GPIO
+                return redirect(url_for('index'))
+            else:
+                return render_template("insertcoin.html")
 @app.route('/get_total_amount', methods=["GET"])
 def get_total_amount():
     global total_amount
