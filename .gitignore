@@ -12,3 +12,5 @@ uploads/*
 
 # exception to the rule
 !uploads/.gitkeep 
+
+venv/

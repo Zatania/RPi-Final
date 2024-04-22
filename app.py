@@ -74,6 +74,17 @@ class Money(db.Model):
 
     def __repr__(self):
         return f'<Money {self.amount} {self.date_added}>'
+
+class DailyTotal(db.Model):
+
+    __tablename__ = 'dailytotal'
+
+    id = db.Column(db.Integer, primary_key=True)
+    total_amount = db.Column(db.Float, nullable=False)
+    date = db.Column(db.Date, default=date.today)
+    
+    def __repr__(self):
+        return f'<Daily Total {self.totalAmount} {self.date}>'
     
 login_manager = LoginManager()
 login_manager.login_view = 'login.html'
@@ -324,9 +335,23 @@ def insert_coin_post():
     new_money = Money(amount=total_amount)
     db.session.add(new_money)
     db.session.commit()
+
+    update_daily_total(total_amount)
+
     total_amount = 0  # Reset total_amount after saving to the database
     cleanup_gpio()
     return redirect(url_for('index'))
+
+def update_daily_total(amount):
+    today = date.today()
+    daily_total = DailyTotal.query.filter_by(date=today).first()
+    if daily_total:
+        daily_total.total_amount += amount
+    else:
+        daily_total = DailyTotal(total_amount=amount, date=today)
+        db.session.add(daily_total)
+    db.session.commit()
+
 @app.route('/get_total_amount', methods=["GET"])
 def get_total_amount():
     global total_amount
@@ -338,6 +363,13 @@ def get_total_amount():
 def history():
     money = Money.query.all()
     return render_template("history.html", money=money)
+
+@app.route('/dailytotal')
+def get_daily_total():
+    today = date.today()
+    daily_total = DailyTotal.query.all()
+    
+    return render_template("daily.html", daily_total=daily_total)
 
 if __name__ == "__main__":
     try:

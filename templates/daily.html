@@ -20,22 +20,22 @@
                                     <button type="button" class="btn btn-outline-dark btn-sm"><i class="fa-solid fa-arrow-left-long"></i> Return</button>
                                 </a>
                             </div>
-                            <h1 class="card-title mb-5 text-center">Donation History</h1>
+                            <h1 class="card-title mb-5 text-center">Daily Donation Total</h1>
                             <div class="row">
                                 <table class="table" id="dataTable">
                                     <thead>
                                         <tr>
                                             <th scope="col">ID</th>
-                                            <th scope="col">Amount</th>
-                                            <th scope="col">Donation Date</th>
+                                            <th scope="col">Total Amount</th>
+                                            <th scope="col">Date</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {% for mon in money %}
+                                        {% for total in daily_total %}
                                         <tr>
-                                            <td>{{ mon.id }}</td>
-                                            <td>Php {{ mon.amount }}</td>
-                                            <td>{{ mon.date_added.strftime('%A %B %d, %Y %I:%M:%S %p') }}</td>
+                                            <td>{{ total.id }}</td>
+                                            <td>Php {{ total.total_amount }}</td>
+                                            <td>{{ total.date.strftime('%A %B %d, %Y') }}</td>
                                         </tr>
                                         {% endfor %}
                                     </tbody>
