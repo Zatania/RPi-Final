@@ -6,53 +6,42 @@
 <body>
     <div class="container">
         <div class="row">
-            <div class="col text-center py-3">
-                <button class="login-button">
-                    <a href="{{ url_for('login') }}">
-                        <img src="{{ url_for('static', filename='img/user-login-icon-29.png')}}" alt="Login">
-                    </a>
-                </button>
+            <div class="col-3">
+                <div class="login-container">
+                    <button class="login-button">
+                        <a href="{{ url_for('login') }}">
+                            <img src="{{ url_for('static', filename='img/user-login-icon-29.png')}}" alt="Login">
+                        </a>
+                    </button>
+                </div>
+            </div>
+            <div class="col-3">
+                <!-- Empty column for spacing -->
             </div>
         </div>
-        <div class="row">
+        <div class="row fixed-top">
             <div class="col text-center py-1">
-                <h1>E-Pera</h1>
-                <h2>Emerging Platform for Emergency Assistance</h2>
+                <img src="{{ url_for('static', filename='img/Heading.png')}}" alt="" class="headingLogo">
             </div>
         </div>
-        <div class="text-center py-1">
-            <img class="logo" src="{{ url_for('static', filename='img/puplogo.png')}}" alt="">
-            <img class="logo" src="{{ url_for('static', filename='img/ITOMS.png')}}" alt="">
-        </div>
-        <div class="row">
-            <div class="col text-center py-1">
-                <h1>PAMANTASANG UNA SA PAGTULONG AT KALINGA</h1>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-6 text-center py-3">
+        <div class="row justify-content-center align-items-end fixed-bottom mb-3">
+            <div class="col-4 text-center py-5 px-0">
                 <div class="buttonsIndex">
                     <a href="{{ url_for('insertcoin') }}" class="btn btn-outline-info border-0">
                         <div class="row">
                             <div class="col-12">
                                 <img src="{{ url_for('static', filename='img/Donate.png')}}" alt="">
                             </div>
-                            <div class="col-12 text-black fs-3 fw-bold">
-                                DONATE
-                            </div>
                         </div>
                     </a>
                 </div>
             </div>
-            <div class="col-6 text-center py-3">
+            <div class="col-4 text-center py-5 px-0">
                 <div class="buttonsIndex">
                     <a href="{{ url_for('assistance') }}" class="btn btn-outline-info border-0">
                         <div class="row">
                             <div class="col-12">
                                 <img src="{{ url_for('static', filename='img/Assistance.png')}}" alt="">
-                            </div>
-                            <div class="col-12 text-black fs-3 fw-bold">
-                                ASSISTANCE
                             </div>
                         </div>
                     </a>

@@ -1,59 +1,63 @@
 {% extends 'base.html' %}
 {% block title %}
-    <title>E-Pera - Request Assistance</title>
+    <title>E-Pera Admin Dashboard</title>
 {% endblock %}
 {% block content %}
-<body>
-    <div class="container">
-        <div class="row">
-            <div class="col text-center py-1">
-                <h1 class="display-4">E-Pera</h1>
-                <h2 class="h4">Emerging Platform for Emergency Assistance</h2>
+<section>
+    <div class="container-fluid d-flex justify-content-center align-items-center min-vh-100">
+        <div class="col-xl-12">
+            <div class="row">
+                <div class="col text-center py-1">
+                    <img src="{{ url_for('static', filename='img/Heading.png')}}" alt="Heading Logo" class="headingLogo">
+                </div>
             </div>
-        </div>
-        <div class="text-center py-1">
-            <img class="logo" src="{{ url_for('static', filename='img/puplogo.png')}}" alt="">
-            <img class="logo" src="{{ url_for('static', filename='img/ITOMS.png')}}" alt="">
-        </div>
-        <div class="row">
-            <div class="col-md-6 offset-md-3">
-                <div class="card" style="border-radius: 1rem;">
-                    <div class="card-body p-5">
-                        <h5 class="card-title mb-5 text-center">Request Assistance</h5>
-                        <form action="" method="POST">
-                            <div class="form-group mb-3 text-center">
-                                <label for="assistance_type">Select Assistance Type:</label>
-                                <select id="assistance_type" class="form-select text-center" name="assistance_type">
-                                    <option value="food">Food</option>
-                                    <option value="house_rental">House Rental</option>
-                                    <option value="school_supplies">School Supplies</option>
-                                    <option value="transportation">Transportation</option>
-                                </select>
-                            </div>
-                            <div class="form-group mb-5 text-center" id="names_dropdown">
-                                <label for="name">Select Beneficiary Name:</label>
-                                <select class="form-select text-center" id="name" name="name">
-                                    <!-- Options will be dynamically populated based on selected assistance type -->
-                                </select>
-                            </div>
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-primary btn-sm" id="need_assistance_btn">Need Assistance</button>
-                            </div>
-                        </form>
+            <div class="card" style="border-radius: 1rem;">
+                <div class="card-body p-5">
+                    <div class="row mb-3">
+                        <div class="col text-start">
+                            <h5>Welcome, {{ fullname }}</h5>
+                        </div>
+                        <div class="col text-end">
+                            <a href="{{ url_for('logout') }}">
+                                <button type="button" class="btn btn-outline-danger btn-sm"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+                            </a>
+                        </div>
                     </div>
+                    <h1 class="card-title mb-5 text-center">Dashboard</h1>
+                    <form class="text-center">
+                        <div class="row mb-5">
+                            <div class="col-md-4 mb-3">
+                                <a href="{{ url_for('addbeneficiary') }}">
+                                    <button type="button" class="btn btn-outline-dark btn-custom"><i class="fa-solid fa-plus fa-5x m-1"></i> <p class="fw-bold">Add Beneficiary</p></button>
+                                </a>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <a href="{{ url_for('beneficiaries') }}">
+                                    <button type="button" class="btn btn-outline-dark btn-custom"><i class="fa-solid fa-eye fa-5x m-1"></i> <p class="fw-bold">View Beneficiaries List</p></button>
+                                </a>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <a href="{{ url_for('confirm_assistance') }}">
+                                    <button type="button" class="btn btn-outline-dark btn-custom"><i class="fa-solid fa-eye fa-5x m-1"></i> <p class="fw-bold">View Confirmation List</p></button>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <a href="{{ url_for('get_daily_total') }}">
+                                    <button type="button" class="btn btn-outline-dark btn-custom"><i class="fa-solid fa-eye fa-5x m-1"></i> <p class="fw-bold">Total Daily Donations</p></button>
+                                </a>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <a href="{{ url_for('history') }}">
+                                    <button type="button" class="btn btn-outline-dark btn-custom"><i class="fa-solid fa-eye fa-5x m-1"></i> <p class="fw-bold">View Donation History</p></button>
+                                </a>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-    
-    <script>
-        document.getElementById('assistance_type').addEventListener('change', function() {
-            var assistanceType = this.value;
-            // AJAX call to fetch names based on assistance type and populate the names dropdown
-            // Display names dropdown and need assistance button
-            document.getElementById('names_dropdown');
-            document.getElementById('need_assistance_btn');
-        });
-    </script>
-</body>
+</section>
 {% endblock %}

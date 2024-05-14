@@ -12,6 +12,14 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
+    $('.view-donateqr-btn').click(function() {
+        var imageUrl = $(this).data('image');
+        $('#imagePreview').attr('src', '/static/img/' + imageUrl);
+        $('#imageViewModal').modal('show');
+    });
+  });
+
+$(document).ready(function() {
   $('#assistance_type').change(function() {
       var assistanceType = $(this).val();
 

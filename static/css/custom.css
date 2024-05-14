@@ -1,7 +1,11 @@
 body {
     font-family: 'Consolas', sans-serif;
-    background: url("/static/img/background_portal.png") no-repeat center center fixed;
+    background: linear-gradient(90deg, rgba(150,5,5,0.2) 0%, rgba(191,81,81,0.2) 23%, rgba(200,65,65,0.2) 58%, rgba(124,5,5,0.2) 100%), url("/static/img/background_portal.png") no-repeat center center fixed;
     background-size: cover;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100%;
 }
 
 .logo {
@@ -10,6 +14,14 @@ body {
     margin-bottom: 10px;
 }
 
+.login-container {
+    position: fixed;
+    top: 10px; /* Adjust as needed */
+    left: 10px; /* Adjust as needed */
+    z-index: 10000; /* Ensure it's above the heading */
+}
+
+
 .login-button {
     background: transparent;
     border: none;
@@ -17,8 +29,6 @@ body {
     display: flex;
     cursor: pointer;
     border-radius: 8px;
-    position: fixed;
-    margin-left: 15px;
 }
 
 .login-button img {
@@ -26,11 +36,27 @@ body {
     height: auto; 
     display: block;
     border-radius: 8px;
-    position: left ;
 }
 
-
 .buttonsIndex img {
-    height: 150px;
-    width: 150px;
+    height: 175px;
+    width: 175px;
+}
+
+.headingLogo {
+    width: 50%;
+    height: auto;
+}
+
+.fixed-top {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 9999; /* Ensure it's above other content */
+}
+.fixed-bottom {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 9999; /* Ensure it's above other content */
 }

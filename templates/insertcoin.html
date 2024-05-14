@@ -4,20 +4,22 @@
 {% endblock %}
 {% block content %}
     <body>
-        <section class="sign-in">
+        <section>
             <div class="container-fluid d-flex justify-content-center align-items-center vh-100">
-                <div class="col-xl-10">
-                    <div class="text-center">
-                        <div>
-                            <img class="logo" src="{{ url_for('static', filename='img/puplogo.png')}}" alt="">
-                            <img class="logo" src="{{ url_for('static', filename='img/ITOMS.png')}}" alt="">
+                <div class="col-xl-6">
+                    <div class="row">
+                        <div class="col text-center py-1">
+                            <img src="{{ url_for('static', filename='img/Heading.png')}}" alt="" class="headingLogo">
                         </div>
                     </div>
                     <div class="card" style="border-radius: 1rem;">
                         <div class="card-body p-5">
-                            <h1 class="card-title mb-5 text-center">Insert Coin</h1>
+                            <div class="d-grid d-md-flex justify-content-md-end">
+                                <button type="button" class="btn btn-outline-dark btn-sm view-donateqr-btn" data-image="qrcode.jpg"><i class="fa-solid fa-qrcode"></i> Donate using QR Code</button>
+                            </div>
+                            <h3 class="card-title mb-5 text-center">Insert Coin</h3>
                             <div class="row">
-                                <h3 class="card-title mb-5 text-center">Total Amount</h3>
+                                <h5 class="card-title mb-5 text-center">Total Amount</h5>
                                 <h2 id="total-amount" class="card-title mb-5 text-center">
                                     {% if total_amount %}
                                         {{ total_amount }}
@@ -26,7 +28,7 @@
                                     {% endif %}
                                 </h2>
                                 </h3>
-                                <a class="btn btn-primary" href="{{ url_for('insert_coin_post') }}">Done</a>
+                                <button id="done-button" class="btn btn-primary">Done</button>
                             </div>
                         </div>
                     </div>
@@ -34,9 +36,9 @@
             </div>
         </section>
 
-        <!-- Modal -->
+        <!-- Modal for QR Code -->
         <div class="modal fade" id="imageViewModal" tabindex="-1" aria-labelledby="imageViewModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-dialog modal-md modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="imageViewModalLabel">QR Code</h5>
@@ -44,6 +46,21 @@
                     </div>
                     <div class="modal-body">
                         <img id="imagePreview" src="" alt="QR Code" style="max-width: 100%; max-height: 100%;">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal for Thank You Image -->
+        <div class="modal fade" id="thankYouModal" tabindex="-1" aria-labelledby="thankYouModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-md modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="thankYouModalLabel">Thank You!</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <img src="{{ url_for('static', filename='img/thankyou.png')}}" alt="Thank You" style="max-width: 100%; max-height: 100%;">
                     </div>
                 </div>
             </div>
@@ -71,5 +88,17 @@
 
         // Update total_amount every second
         setInterval(updateTotalAmount, 1000); // Update every second
+
+        // Show thank you modal when the "Done" button is clicked
+        document.getElementById('done-button').addEventListener('click', function() {
+            // Show the thank you modal
+            var thankYouModal = new bootstrap.Modal(document.getElementById('thankYouModal'));
+            thankYouModal.show();
+        });
+
+        // Redirect after the thank you modal is closed
+        document.getElementById('thankYouModal').addEventListener('hidden.bs.modal', function () {
+            window.location.href = "{{ url_for('insert_coin_post') }}";
+        });
     </script>
 {% endblock %}

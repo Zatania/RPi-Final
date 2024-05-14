@@ -3,66 +3,56 @@
     <title>E-Pera Admin Dashboard</title>
 {% endblock %}
 {% block content %}
-    <body>
-        <section class="sign-in">
-            <div class="container-fluid d-flex justify-content-center align-items-center vh-100">
-                <div class="col-xl-10">
-                    <div class="text-center">
-                        <div>
-                            <img class="logo" src="{{ url_for('static', filename='img/puplogo.png')}}" alt="">
-                            <img class="logo" src="{{ url_for('static', filename='img/ITOMS.png')}}" alt="">
+<section>
+    <div class="container-fluid d-flex justify-content-center align-items-center min-vh-100">
+        <div class="col-xl-10">
+            <div class="card" style="border-radius: 1rem;">
+                <div class="card-body p-5">
+                    <div class="row mb-3">
+                        <div class="col text-start">
+                            <h5>Welcome {{ fullname }}</h5>
+                        </div>
+                        <div class="col text-end">
+                            <a href="{{ url_for('logout') }}">
+                                <button type="button" class="btn btn-outline-danger btn-sm"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+                            </a>
                         </div>
                     </div>
-                    <div class="card" style="border-radius: 1rem;">
-                        <div class="card-body p-5">
-                            <div class="row text-center">
-                                <div class="col-6">
-                                    <h5>
-                                        Welcome [{{ fullname }}]
-                                    </h5>
-                                </div>
-                                <div class="col-6">
-                                    <a href="{{ url_for('logout') }}">
-                                        <button type="button" class="btn btn-outline-danger btn-sm"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
-                                    </a>
-                                </div>
+                    <h1 class="card-title mb-5 text-center">Dashboard</h1>
+                    <form class="text-center">
+                        <div class="row mb-5">
+                            <div class="col-md-4 mb-3">
+                                <a href="{{ url_for('addbeneficiary') }}">
+                                    <button type="button" class="btn btn-outline-dark btn-custom"><i class="fa-solid fa-plus fa-5x m-1"></i> <p class="fw-bold">Add Beneficiary</p></button>
+                                </a>
                             </div>
-                            <h1 class="card-title mb-5 text-center">Dashboard</h1>
-                            <form class="text-center">
-                                <div class="row">
-                                    <div class="col-4 mb-5">
-                                        <a href="{{ url_for('addbeneficiary') }}">
-                                            <button type="button" class="btn btn-outline-dark"><i class="fa-solid fa-plus fa-5x m-1"></i> <p class="fw-bold">Add Beneficiary</p></button>
-                                        </a>
-                                    </div>
-                                    <div class="col-4 mb-5">
-                                        <a href="{{ url_for('beneficiaries') }}">
-                                            <button type="button" class="btn btn-outline-dark"><i class="fa-solid fa-eye fa-5x m-1"></i> <p class="fw-bold">View Beneficiaries List</p></button>
-                                        </a>
-                                    </div>
-                                    <div class="col-4 mb-5">
-                                        <a href="{{ url_for('confirm_assistance') }}">
-                                            <button type="button" class="btn btn-outline-dark"><i class="fa-solid fa-eye fa-5x m-1"></i> <p class="fw-bold">View Confirmation List</p></button>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6 mb-5">
-                                        <a href="{{ url_for('get_daily_total') }}">
-                                            <button type="button" class="btn btn-outline-dark"><i class="fa-solid fa-eye fa-5x m-1"></i> <p class="fw-bold">Total Daily Donations</p></button>
-                                        </a>
-                                    </div>
-                                    <div class="col-6 mb-5">
-                                        <a href="{{ url_for('history') }}">
-                                            <button type="button" class="btn btn-outline-dark"><i class="fa-solid fa-eye fa-5x m-1"></i> <p class="fw-bold">View Donation History</p></button>
-                                        </a>
-                                    </div>
-                                </div>
-                            </form>
+                            <div class="col-md-4 mb-3">
+                                <a href="{{ url_for('beneficiaries') }}">
+                                    <button type="button" class="btn btn-outline-dark btn-custom"><i class="fa-solid fa-eye fa-5x m-1"></i> <p class="fw-bold">View Beneficiaries List</p></button>
+                                </a>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <a href="{{ url_for('confirm_assistance') }}">
+                                    <button type="button" class="btn btn-outline-dark btn-custom"><i class="fa-solid fa-eye fa-5x m-1"></i> <p class="fw-bold">View Confirmation List</p></button>
+                                </a>
+                            </div>
                         </div>
-                    </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <a href="{{ url_for('get_daily_total') }}">
+                                    <button type="button" class="btn btn-outline-dark btn-custom"><i class="fa-solid fa-eye fa-5x m-1"></i> <p class="fw-bold">Total Daily Donations</p></button>
+                                </a>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <a href="{{ url_for('history') }}">
+                                    <button type="button" class="btn btn-outline-dark btn-custom"><i class="fa-solid fa-eye fa-5x m-1"></i> <p class="fw-bold">View Donation History</p></button>
+                                </a>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-        </section>
-    </body>
+        </div>
+    </div>
+</section>
 {% endblock %}
