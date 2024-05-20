@@ -364,7 +364,17 @@ def history():
     money = Money.query.all()
     return render_template("history.html", money=money)
 
+@app.route('/history/delete/<int:id>')
+@login_required
+def delete_history(id):
+    money = Money.query.get_or_404(id)
+
+    db.session.delete(money)
+    db.session.commit()
+    return redirect(url_for('history'))
+
 @app.route('/dailytotal')
+@login_required
 def get_daily_total():
     today = date.today()
     daily_total = DailyTotal.query.all()
@@ -378,6 +388,7 @@ if __name__ == "__main__":
         cleanup_gpio()  # Cleanup GPIO when the application exits
 
 @app.route('/dailytotal/delete/<int:id>')
+@login_required
 def delete_daily_total(id):
     daily_total = DailyTotal.query.get_or_404(id)
 

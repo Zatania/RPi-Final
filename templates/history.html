@@ -22,6 +22,9 @@
                                             <th scope="col">ID</th>
                                             <th scope="col">Amount</th>
                                             <th scope="col">Donation Date</th>
+                                            <th scope="col">
+                                                Actions
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -30,6 +33,11 @@
                                             <td>{{ mon.id }}</td>
                                             <td>Php {{ mon.amount }}</td>
                                             <td>{{ mon.date_added.strftime('%A %B %d, %Y %I:%M:%S %p') }}</td>
+                                            <th>
+                                                <a href="/history/delete/{{ total.id }}">
+                                                    <button type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i> Delete</button>
+                                                </a>
+                                            </th>
                                         </tr>
                                         {% endfor %}
                                     </tbody>
