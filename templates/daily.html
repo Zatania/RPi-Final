@@ -22,6 +22,9 @@
                                             <th scope="col">ID</th>
                                             <th scope="col">Total Amount</th>
                                             <th scope="col">Date</th>
+                                            <th scope="col">
+                                                Actions
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -30,6 +33,11 @@
                                             <td>{{ total.id }}</td>
                                             <td>Php {{ total.total_amount }}</td>
                                             <td>{{ total.date.strftime('%A %B %d, %Y') }}</td>
+                                            <th>
+                                                <a href="/dailytotal/delete/{{ total.id }}">
+                                                    <button type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i> Delete</button>
+                                                </a>
+                                            </th>
                                         </tr>
                                         {% endfor %}
                                     </tbody>
